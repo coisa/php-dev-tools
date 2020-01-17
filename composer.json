@@ -1,0 +1,73 @@
+{
+    "name": "coisa/dev-tools",
+    "description": "PHP development essential toolkit",
+    "type": "composer-plugin",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "keywords": [
+        "phpunit",
+        "test-suite",
+        "tests",
+        "dev-tools",
+        "development"
+    ],
+    "authors": [
+        {
+            "name": "Felipe Sayão Lobato Abreu",
+            "email": "github@felipeabreu.com.br"
+        }
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "class": "CoiSA\\DevTools\\Composer\\Plugin\\DevToolsPlugin"
+    },
+    "require": {
+        "php": "^7.1",
+        "composer-plugin-api": "^1.1",
+        "friendsofphp/php-cs-fixer": "^2.15",
+        "fzaninotto/faker": "^1.8",
+        "jakub-onderka/php-parallel-lint": "^1.0",
+        "jangregor/phpstan-prophecy": "^0.4.2",
+        "maglnet/composer-require-checker": "^2.0",
+        "malukenho/docheader": "^0.1.7",
+        "phpro/grumphp": "^0.16.1",
+        "phpstan/extension-installer": "^1.0",
+        "phpstan/phpstan": "^0.11.16",
+        "phpunit/phpunit": "^8.4",
+        "roave/security-advisories": "dev-master",
+        "sensiolabs/security-checker": "^6.0",
+        "squizlabs/php_codesniffer": "^3.5",
+        "symfony/var-dumper": "^4.3"
+    },
+    "require-dev": {
+        "composer/composer": "^1.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "CoiSA\\DevTools\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CoiSA\\DevTools\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "analyze": "phpstan analyze --level max ./src ./tests",
+        "check": [
+            "@cs-check",
+            "@sniff",
+            "@test",
+            "@analyze"
+        ],
+        "cs-check": "php-cs-fixer fix --dry-run --diff",
+        "cs-fix": [
+            "php-cs-fixer fix",
+            "phpcbf"
+        ],
+        "sniff": "phpcs",
+        "test": "phpunit --colors=always"
+    }
+}
