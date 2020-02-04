@@ -7,7 +7,7 @@
  * with this source code in the file LICENSE.
  *
  * @link      https://github.com/coisa/dev-tools
- * @copyright Copyright (c) 2019 Felipe Sayão Lobato Abreu <github@felipeabreu.com.br>
+ * @copyright Copyright (c) 2019-2020 Felipe Sayão Lobato Abreu <github@felipeabreu.com.br>
  * @license   https://opensource.org/licenses/MIT MIT License
  */
 
@@ -33,6 +33,7 @@ class CommandProvider implements CommandProviderCapability
         return [
             new Command\AnalyzeCommand(),
             new Command\CsFixCommand(),
+            new Command\SniffCommand(),
             new Command\TestCommand(),
         ];
     }

@@ -7,7 +7,7 @@
  * with this source code in the file LICENSE.
  *
  * @link      https://github.com/coisa/dev-tools
- * @copyright Copyright (c) 2019 Felipe Sayão Lobato Abreu <github@felipeabreu.com.br>
+ * @copyright Copyright (c) 2019-2020 Felipe Sayão Lobato Abreu <github@felipeabreu.com.br>
  * @license   https://opensource.org/licenses/MIT MIT License
  */
 
@@ -26,13 +26,38 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class AnalyzeCommand extends BaseCommand
 {
-    public function execute(InputInterface $input, OutputInterface $output): void
+    /**
+     * @var string Command name
+     */
+    protected static $defaultName = 'analyze';
+
+    /**
+     * @return array
+     */
+    public function getAliases(): array
     {
-        $output->write(self::class);
+        return ['analyse'];
     }
 
-    protected function configure(): void
+    /**
+     * Analyze source code
+     *
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     *
+     * @TODO Use this repo configurations if the working-dir doesnt have specific configurations
+     */
+    public function execute(InputInterface $input, OutputInterface $output): void
     {
-        $this->setName('analyze');
+        // @FIXME find binary directory when executed by a global installation
+        $directory = \getcwd();
+        $helper    = $this->getHelper('process');
+
+        $helper->run($output, [
+            \sprintf('%s/vendor/bin/phpstan', $directory),
+            'analyze',
+            '--level=max',
+            $directory,
+        ]);
     }
 }

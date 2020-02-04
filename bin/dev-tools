@@ -1,0 +1,36 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * This file is part of coisa/dev-tools.
+ *
+ * This source file is subject to the license that is bundled
+ * with this source code in the file LICENSE.
+ *
+ * @link      https://github.com/coisa/dev-tools
+ * @copyright Copyright (c) 2019-2020 Felipe Sayão Lobato Abreu <github@felipeabreu.com.br>
+ * @license   https://opensource.org/licenses/MIT MIT License
+ */
+
+use CoiSA\DevTools\Composer\Command;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\OutputInterface;
+
+if (file_exists(__DIR__.'/../../../autoload.php')) {
+    require __DIR__.'/../../../autoload.php';
+} else {
+    require __DIR__.'/../vendor/autoload.php';
+}
+
+$app    = new Application();
+$output = new ConsoleOutput();
+
+$app->add(new Command\AnalyzeCommand());
+$app->add(new Command\CsFixCommand());
+$app->add(new Command\SniffCommand());
+$app->add(new Command\TestCommand());
+
+$output->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
+
+$app->run(null, $output);

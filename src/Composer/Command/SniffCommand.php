@@ -20,27 +20,19 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class TestCommand
+ * Class SniffCommand
  *
  * @package CoiSA\DevTools\Composer\Command
  */
-class TestCommand extends BaseCommand
+class SniffCommand extends BaseCommand
 {
     /**
      * @var string Command name
      */
-    protected static $defaultName = 'test';
+    protected static $defaultName = 'sniff';
 
     /**
-     * @return array
-     */
-    public function getAliases(): array
-    {
-        return ['tests', 'run-tests'];
-    }
-
-    /**
-     * Run test suites
+     * Sniff source code
      *
      * @param InputInterface  $input
      * @param OutputInterface $output
@@ -53,6 +45,6 @@ class TestCommand extends BaseCommand
         $directory = \getcwd();
         $helper    = $this->getHelper('process');
 
-        $helper->run($output, \explode(' ', \sprintf('%s/vendor/bin/phpunit %s', $directory, '--color=always')));
+        $helper->run($output, \explode(' ', \sprintf('%s/vendor/bin/phpcs', $directory)));
     }
 }
